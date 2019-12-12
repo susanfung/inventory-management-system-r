@@ -4,7 +4,7 @@ library(shiny)
 ui <- fluidPage(
     
     # App title ----
-    titlePanel("Reactivity"),
+    titlePanel("Inventory"),
     
     # Sidebar layout with input and output definitions ----
     sidebarLayout(
