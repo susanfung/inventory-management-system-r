@@ -1,35 +1,24 @@
-library(shiny)
+library(shinydashboard)
 
 # Define UI for dataset viewer app ----
-ui <- fluidPage(
-    
-    # App title ----
-    titlePanel("Inventory"),
-    
-    # Sidebar layout with input and output definitions ----
-    sidebarLayout(
+
+dashboardPage(
+    dashboardHeader(title = "Inventory"),
+    dashboardSidebar(
+        # Input: Chemical Barcode
+        textInput(inputId = "barcodeChemical",
+                  label = "Chemical:",
+                  value = "Scan Barcode"),
         
-        # Sidebar panel for inputs ----
-        sidebarPanel(
-            
-            # Input: Chemical Barcode
-            textInput(inputId = "barcodeChemical",
-                      label = "Chemical:",
-                      value = "Scan Barcode"),
-            
-            # Input: Location Barcode
-            textInput(inputId = "barcodeLocation",
-                      label = "Location:",
-                      value = "Scan Barcode")
-            
-        ),
-        
-        # Main panel for displaying outputs ----
-        mainPanel(
-            
-            # Output: HTML table with requested number of observations ----
-            tableOutput("view"),
-            
+        # Input: Location Barcode
+        textInput(inputId = "barcodeLocation",
+                  label = "Location:",
+                  value = "Scan Barcode")
+    ),
+    dashboardBody(
+        fluidPage(
+            # Output: Inventory Table
+            tableOutput("view")
         )
     )
 )
