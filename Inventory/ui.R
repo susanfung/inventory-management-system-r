@@ -28,7 +28,7 @@ ui <- fluidPage(
         mainPanel(
             
             # Output: HTML table with requested number of observations ----
-            tableOutput("view")
+            tableOutput("view"),
             
         )
     )

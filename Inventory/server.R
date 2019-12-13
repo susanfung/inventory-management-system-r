@@ -10,6 +10,15 @@ shinyServer(function(input, output) {
     InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
     names(InventoryList) <- sheets
     
+    # Render inputs.
+    output$barcode_chemical <- {(
+        renderText(input$barcodeChemical)
+    )}
+    
+    output$barcode_location <- {(
+        renderText(input$barcodeLocation)
+    )}
+    
     # Show inventory list.
     output$view <- renderTable({
         head(InventoryList$Inventory)
