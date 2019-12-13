@@ -4,6 +4,7 @@ library(shinydashboard)
 
 dashboardPage(
     dashboardHeader(title = "Inventory"),
+    
     dashboardSidebar(
         # Input: Chemical Barcode
         textInput(inputId = "barcodeChemical",
@@ -13,8 +14,12 @@ dashboardPage(
         # Input: Location Barcode
         textInput(inputId = "barcodeLocation",
                   label = "Location:",
-                  value = "Scan Barcode")
+                  value = "Scan Barcode"),
+        
+        # Action Button: Submit
+        actionButton("updateLocation", "Submit")
     ),
+    
     dashboardBody(
         fluidPage(
             # Output: Inventory Table
