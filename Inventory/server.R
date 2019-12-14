@@ -1,6 +1,7 @@
 # Load the required packages.
 library(shiny)
 library(readxl)
+library(ggplot2)
 
 # Create the server functions for the UI.
 shinyServer(function(input, output) {
@@ -25,8 +26,9 @@ shinyServer(function(input, output) {
     })
     
     # Show inventory list.
-    output$view <- renderTable({
-        head(InventoryList$Inventory)
-    })
+    output$table <- DT::renderDataTable(DT::datatable({
+        data <- InventoryList$Inventory
+        data
+    }))
 
 })

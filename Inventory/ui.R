@@ -1,4 +1,5 @@
 library(shinydashboard)
+library(ggplot2)
 
 # Define UI for dataset viewer app ----
 
@@ -6,6 +7,7 @@ dashboardPage(
     dashboardHeader(title = "Inventory"),
     
     dashboardSidebar(
+        
         # Input: Chemical Barcode
         textInput(inputId = "barcodeChemical",
                   label = "Chemical:",
@@ -23,7 +25,7 @@ dashboardPage(
     dashboardBody(
         fluidPage(
             # Output: Inventory Table
-            tableOutput("view")
+            DT::dataTableOutput("table")
         )
     )
 )
