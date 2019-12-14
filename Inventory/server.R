@@ -11,6 +11,15 @@ shinyServer(function(input, output) {
     InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
     names(InventoryList) <- sheets
     
+    # Show table selected columns.
+    output$mytable = renderDataTable({
+        columns = names(InventoryList$Inventory)
+        if (!is.null(input$select)) {
+            columns = input$select
+        }
+        InventoryList$Inventory[,columns,drop=FALSE]
+    })
+    
     # Update chemical location.
     eventReactive(input$updateLocation, {
         
@@ -24,11 +33,5 @@ shinyServer(function(input, output) {
         )}
         
     })
-    
-    # Show inventory list.
-    output$table <- DT::renderDataTable(DT::datatable({
-        data <- InventoryList$Inventory
-        data
-    }))
 
 })
