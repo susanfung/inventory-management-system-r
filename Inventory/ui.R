@@ -16,9 +16,6 @@ dashboardPage(
     
     dashboardSidebar(
         
-        # Select table columns to view.
-        selectInput("select", "Select Columns To Display:", names(vchoices), multiple = TRUE),
-        
         # Input: Chemical Barcode
         textInput(inputId = "barcodeChemical",
                   label = "Chemical:",

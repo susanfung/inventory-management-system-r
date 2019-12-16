@@ -2,6 +2,7 @@
 library(shiny)
 library(readxl)
 library(ggplot2)
+library(DT)
 
 # Create the server functions for the UI.
 shinyServer(function(input, output) {
@@ -12,13 +13,13 @@ shinyServer(function(input, output) {
     names(InventoryList) <- sheets
     
     # Show table selected columns.
-    output$mytable = renderDataTable({
-        columns = names(InventoryList$Inventory)
-        if (!is.null(input$select)) {
-            columns = input$select
-        }
-        InventoryList$Inventory[,columns,drop=FALSE]
-    })
+    output$mytable = renderDataTable(
+        InventoryList$Inventory, rownames = FALSE,
+        extensions = 'Buttons', options = list(
+            dom = 'Bfrtip',
+            buttons = list(list(extend = 'colvis', columns = c(0)))
+        )
+    )
     
     # Update chemical location.
     eventReactive(input$updateLocation, {
