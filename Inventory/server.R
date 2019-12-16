@@ -15,9 +15,13 @@ shinyServer(function(input, output) {
     # Show table selected columns.
     output$mytable = renderDataTable(
         InventoryList$Inventory, rownames = FALSE,
-        extensions = 'Buttons', options = list(
+        extensions = list('Buttons' = NULL,
+                          'FixedColumns' = list(leftColumns = 2)),
+        options = list(
             dom = 'Bfrtip',
-            buttons = list(list(extend = 'colvis', columns = c(0)))
+            buttons = list(list(extend = 'colvis', columns = c(0, 3, 4, 5, 6, 7, 8, 9, 10))),
+            scrollX = TRUE,
+            fixedColumns = list(leftColumns = 3)
         )
     )
     
