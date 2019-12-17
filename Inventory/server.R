@@ -16,12 +16,14 @@ shinyServer(function(input, output) {
     output$mytable = renderDataTable(
         InventoryList$Inventory, rownames = FALSE,
         extensions = list('Buttons' = NULL,
-                          'FixedColumns' = list(leftColumns = 2)),
+                          'FixedColumns' = NULL,
+                          'FixedHeader' = NULL),
         options = list(
-            dom = 'Bfrtip',
+            dom = 'Blfrtip',
             buttons = list(list(extend = 'colvis', columns = c(0, 3, 4, 5, 6, 7, 8, 9, 10))),
             scrollX = TRUE,
-            fixedColumns = list(leftColumns = 3)
+            fixedColumns = list(leftColumns = 3),
+            fixedHeader = TRUE
         )
     )
     
