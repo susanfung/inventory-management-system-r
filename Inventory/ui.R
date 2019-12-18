@@ -16,24 +16,43 @@ dashboardPage(
     
     dashboardSidebar(
         
-        # Input: Chemical Barcode
-        textInput(inputId = "barcodeChemical",
-                  label = "Chemical:",
-                  value = "Scan Barcode"),
-        
-        # Input: Location Barcode
-        textInput(inputId = "barcodeLocation",
-                  label = "Location:",
-                  value = "Scan Barcode"),
-        
-        # Action Button: Submit
-        actionButton("updateLocation", "Submit")
+        sidebarMenu(
+            # Setting id makes input$tabs give the tabName of currently-selected tab
+            id = "tabs",
+            menuItem("Inventory List", tabName = "inventoryList", icon = icon("list")),
+            menuItem("Update Inventory", tabName = "updateInventory", icon = icon("edit")),
+            menuItem("Add New Inventory", tabName = "addNewInventory", icon = icon("plus")
+            )
+        )
     ),
     
     dashboardBody(
         fluidPage(
-            # Output: Inventory Table
-            dataTableOutput('mytable')
+            tabItems(
+                tabItem("inventoryList",
+                        # Output: Inventory Table
+                        dataTableOutput('mytable')
+                ),
+                
+                tabItem("updateInventory",
+                        # Input: Chemical Barcode
+                        textInput(inputId = "barcodeChemical",
+                                  label = "Chemical:",
+                                  value = "Scan Barcode"),
+                        
+                        # Input: Location Barcode
+                        textInput(inputId = "barcodeLocation",
+                                  label = "Location:",
+                                  value = "Scan Barcode"),
+                        
+                        # Action Button: Submit
+                        actionButton("updateLocation", "Submit")
+                ),
+                
+                tabItem("addNewInventory",
+                        "Form content here"
+                )
+            )
         )
     )
 )
