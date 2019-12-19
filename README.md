@@ -24,3 +24,5 @@ This is built in R Studio using R Shiny Dashboard. You can run the application b
 
 - next version
     * [ ] Recreate the system using React to eliminate the need for data import from a spreadsheet.
+
+ALL RIGHTS RESERVED
