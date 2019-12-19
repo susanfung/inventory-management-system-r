@@ -15,7 +15,6 @@ dashboardPage(
     dashboardHeader(title = "Inventory"),
     
     dashboardSidebar(
-        
         sidebarMenu(
             # Setting id makes input$tabs give the tabName of currently-selected tab
             id = "tabs",
@@ -28,6 +27,7 @@ dashboardPage(
     
     dashboardBody(
         fluidPage(
+            
             tabItems(
                 tabItem("inventoryList",
                         # Output: Inventory Table
@@ -40,13 +40,18 @@ dashboardPage(
                                   label = "Chemical:",
                                   value = "Scan Barcode"),
                         
-                        # Input: Location Barcode
-                        textInput(inputId = "barcodeLocation",
-                                  label = "Location:",
-                                  value = "Scan Barcode"),
+                        # Select which column to update.
+                        selectInput("column", "Choose a column to update:",
+                                    c(vchoices[-c(0, 1, 2)])
+                        ),
+                        
+                        # Input: New value for selected column
+                        textInput(inputId = "newColumnValue",
+                                  label = NULL,
+                                  value = "Enter new value"),
                         
                         # Action Button: Submit
-                        actionButton("updateLocation", "Submit")
+                        actionButton("updateInventory", "Submit")
                 ),
                 
                 tabItem("addNewInventory",

@@ -27,6 +27,11 @@ shinyServer(function(input, output) {
         )
     )
     
+    # Show selected column to update.
+    output$result <- renderText({
+        paste("Enter new value for ", input$column)
+    })
+    
     # Update chemical location.
     eventReactive(input$updateLocation, {
         
