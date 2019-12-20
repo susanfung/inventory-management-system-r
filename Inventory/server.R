@@ -27,21 +27,34 @@ shinyServer(function(input, output) {
         )
     )
     
-    # Show selected column to update.
-    output$result <- renderText({
-        paste("Enter new value for ", input$column)
-    })
-    
-    # Update chemical location.
-    eventReactive(input$updateLocation, {
+    # Update inventory.
+    eventReactive(input$updateChemical, {
         
         # Render inputs.
         output$barcode_chemical <- {(
             renderText(input$barcodeChemical)
         )}
         
-        output$barcode_location <- {(
-            renderText(input$barcodeLocation)
+        output$new_value <- {(
+            renderText(input$newColumnValue)
+        )}
+        
+    })
+    
+    # Update chemical location.
+    eventReactive(input$addNewChemical, {
+        
+        # Render inputs.
+        output$new_chemical <- {(
+            renderText(input$name)
+        )}
+        
+        output$new_location <- {(
+            renderText(input$location)
+        )}
+        
+        output$new_column1 <- {(
+            renderText(input$column1)
         )}
         
     })

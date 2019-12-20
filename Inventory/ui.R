@@ -6,8 +6,7 @@ library(readxl)
 sheets <- readxl::excel_sheets("Inventory.xlsx")
 InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
 names(InventoryList) <- sheets
-vchoices <- 1:ncol(InventoryList$Inventory)
-names(vchoices) <- names(InventoryList$Inventory)
+columnNames <- colnames(InventoryList$Inventory)
 
 # Define UI for dataset viewer app ----
 
@@ -42,7 +41,7 @@ dashboardPage(
                         
                         # Select which column to update.
                         selectInput("column", "Choose a column to update:",
-                                    c(vchoices[-c(0, 1, 2)])
+                                    c(columnNames[-c(0, 1, 2)])
                         ),
                         
                         # Input: New value for selected column
@@ -51,11 +50,28 @@ dashboardPage(
                                   value = "Enter new value"),
                         
                         # Action Button: Submit
-                        actionButton("updateInventory", "Submit")
+                        actionButton("updateChemical", "Submit")
                 ),
                 
                 tabItem("addNewInventory",
-                        "Form content here"
+                        
+                        # Input: Chemical
+                        textInput(inputId = "name",
+                                  label = "New Chemical:",
+                                  value = "Scan Barcode"),
+                        
+                        # Input: Location
+                        textInput(inputId = "location",
+                                  label = "Location:",
+                                  value = "Scan Barcode"),
+                        
+                        # Input: Column1
+                        textInput(inputId = "column1",
+                                  label = "Column1:",
+                                  value = "Scan Barcode"),
+                        
+                        # Action Button: Submit
+                        actionButton("addNewChemical", "Submit")
                 )
             )
         )
