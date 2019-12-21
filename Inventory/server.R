@@ -19,14 +19,14 @@ shinyServer(function(input, output, session) {
                           'FixedColumns' = NULL,
                           'FixedHeader' = NULL),
         options = list(
-            dom = 'Blfrtip',
-            buttons = list(list(extend = 'colvis', columns = c(0, 3, 4, 5, 6, 7, 8, 9, 10))),
+            dom = 'lBfrtip',
+            buttons = list(list(extend = 'colvis', columns = c(0, 3, 4, 5, 6, 7, 8, 9, 10)), c('excel', 'pdf')),
             scrollX = TRUE,
             fixedColumns = list(leftColumns = 3),
             fixedHeader = TRUE
         )
     )
-
+    
     # Update inventory.
     eventReactive(input$updateChemical, {
         
