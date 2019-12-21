@@ -1,5 +1,3 @@
-source("globals.R")
-
 # Load the required packages.
 library(shiny)
 library(readxl)
@@ -45,7 +43,7 @@ shinyServer(function(input, output, session) {
     
     # Add new inventory.
     
-    # Only enable the Submit button when the mandatory fields are validated
+    # Only enable the Submit button when the mandatory fields are validated.
     observe({
         mandatoryFilled <-
             vapply(fieldsMandatory,
@@ -56,6 +54,29 @@ shinyServer(function(input, output, session) {
         mandatoryFilled <- all(mandatoryFilled)
 
         shinyjs::toggleState(id = "addNewItem", condition = mandatoryFilled)
+    })
+    
+    # Gather new form data.
+    newFormData <- reactive({
+        data <- sapply(fieldsAll, function(x) input[[x]])
+        data <- c(timestamp = epochTime(), data)
+        data <- t(data)
+        data
+    })
+    
+    # Save new form data.
+    saveNewData <- function(data) {
+        fileName <- sprintf("%s_%s.csv",
+                            humanTime(),
+                            digest::digest(data))
+        
+        write.csv(x = data, file = file.path(responsesDir, fileName),
+                  row.names = FALSE, quote = TRUE)
+    }
+    
+    # Action to take when submit button is pressed.
+    observeEvent(input$addNewItem, {
+        saveNewData(newFormData())
     })
 
 })

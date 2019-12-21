@@ -9,3 +9,13 @@ labelMandatory <- function(label) {
 
 appCSS <-
   ".mandatory_star { color: red; }"
+
+fieldsAll <- c("newName", "newLocation", "newColumn1")
+
+responsesDir <- file.path("responses")
+
+epochTime <- function() {
+  as.integer(Sys.time())
+}
+
+humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
