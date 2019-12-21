@@ -60,20 +60,33 @@ dashboardPage(
                 
                 tabItem("addNewInventory",
                         
-                        # Input: Chemical
-                        textInput(inputId = "newName",
-                                  labelMandatory("Name:")),
+                        div(
+                            id = "newForm",
+                            
+                            # Input: Chemical
+                            textInput(inputId = "newName",
+                                      labelMandatory("Name:")),
+                            
+                            # Input: Location
+                            textInput(inputId = "newLocation",
+                                      labelMandatory("Location:")),
+                            
+                            # Input: Column1
+                            textInput(inputId = "newColumn1",
+                                      label = "Column1:"),
+                            
+                            # Action Button: Submit
+                            actionButton("addNewItem", "Submit", class = "btn-primary")
+                        ),
                         
-                        # Input: Location
-                        textInput(inputId = "newLocation",
-                                  labelMandatory("Location:")),
+                        shinyjs::hidden(
+                            div(
+                                id = "NewThankYouMsg",
+                                h3("Thanks, your response was submitted successfully!"),
+                                actionLink("newSubmitAnother", "Submit another response")
+                            )
+                        )
                         
-                        # Input: Column1
-                        textInput(inputId = "newColumn1",
-                                  label = "Column1:"),
-                        
-                        # Action Button: Submit
-                        actionButton("addNewItem", "Submit", class = "btn-primary")
                 )
             )
         )

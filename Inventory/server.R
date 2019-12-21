@@ -77,6 +77,14 @@ shinyServer(function(input, output, session) {
     # Action to take when submit button is pressed.
     observeEvent(input$addNewItem, {
         saveNewData(newFormData())
+        shinyjs::reset("newForm")
+        shinyjs::hide("newForm")
+        shinyjs::show("NewThankYouMsg")
     })
+    
+    observeEvent(input$newSubmitAnother, {
+        shinyjs::show("newForm")
+        shinyjs::hide("NewThankYouMsg")
+    }) 
 
 })
