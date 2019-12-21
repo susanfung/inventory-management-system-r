@@ -82,6 +82,29 @@ shinyServer(function(input, output, session) {
         shinyjs::show("NewThankYouMsg")
     })
     
+    observeEvent(input$addNewItem, {
+        shinyjs::disable("addNewItem")
+        shinyjs::show("newSubmitMsg")
+        shinyjs::hide("newError")
+        
+        tryCatch({
+            saveNewData(newFormData())
+            shinyjs::reset("newForm")
+            shinyjs::hide("newForm")
+            shinyjs::show("NewThankYouMsg")
+        },
+        
+        error = function(err) {
+            shinyjs::html("newErrorMsg", err$message)
+            shinyjs::show(id = "error", anim = TRUE, animType = "fade")
+        },
+        
+        finally = {
+            shinyjs::enable("addNewItem")
+            shinyjs::hide("newSubmitMsg")
+        })
+    })
+    
     observeEvent(input$newSubmitAnother, {
         shinyjs::show("newForm")
         shinyjs::hide("NewThankYouMsg")

@@ -8,7 +8,8 @@ labelMandatory <- function(label) {
 }
 
 appCSS <-
-  ".mandatory_star { color: red; }"
+  ".mandatory_star { color: red; }
+   #error { color: red; }"
 
 fieldsAll <- c("newName", "newLocation", "newColumn1")
 

@@ -76,7 +76,14 @@ dashboardPage(
                                       label = "Column1:"),
                             
                             # Action Button: Submit
-                            actionButton("addNewItem", "Submit", class = "btn-primary")
+                            actionButton("addNewItem", "Submit", class = "btn-primary"),
+                            
+                            shinyjs::hidden(
+                                span(id = "newSubmitMsg", "Submitting..."),
+                                div(id = "newError",
+                                    div(br(), tags$b("Error: "), span(id = "newErrorMsg"))
+                                )
+                            )
                         ),
                         
                         shinyjs::hidden(
