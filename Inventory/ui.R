@@ -1,3 +1,5 @@
+source("globals.R")
+
 library(shinydashboard)
 library(ggplot2)
 library(readxl)
@@ -26,8 +28,11 @@ dashboardPage(
     
     dashboardBody(
         fluidPage(
+            shinyjs::useShinyjs(),
+            shinyjs::inlineCSS(appCSS),
             
             tabItems(
+                
                 tabItem("inventoryList",
                         # Output: Inventory Table
                         dataTableOutput('mytable')
@@ -50,28 +55,25 @@ dashboardPage(
                                   value = "Enter new value"),
                         
                         # Action Button: Submit
-                        actionButton("updateChemical", "Submit")
+                        actionButton("updateChemical", "Submit", class = "btn-primary")
                 ),
                 
                 tabItem("addNewInventory",
                         
                         # Input: Chemical
-                        textInput(inputId = "name",
-                                  label = "New Chemical:",
-                                  value = "Scan Barcode"),
+                        textInput(inputId = "newName",
+                                  labelMandatory("Name:")),
                         
                         # Input: Location
-                        textInput(inputId = "location",
-                                  label = "Location:",
-                                  value = "Scan Barcode"),
+                        textInput(inputId = "newLocation",
+                                  labelMandatory("Location:")),
                         
                         # Input: Column1
-                        textInput(inputId = "column1",
-                                  label = "Column1:",
-                                  value = "Scan Barcode"),
+                        textInput(inputId = "newColumn1",
+                                  label = "Column1:"),
                         
                         # Action Button: Submit
-                        actionButton("addNewChemical", "Submit")
+                        actionButton("addNewItem", "Submit", class = "btn-primary")
                 )
             )
         )

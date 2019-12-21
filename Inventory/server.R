@@ -1,3 +1,5 @@
+source("globals.R")
+
 # Load the required packages.
 library(shiny)
 library(readxl)
@@ -5,7 +7,7 @@ library(ggplot2)
 library(DT)
 
 # Create the server functions for the UI.
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
     # Read the dataset.
     sheets <- readxl::excel_sheets("Inventory.xlsx")
@@ -41,22 +43,19 @@ shinyServer(function(input, output) {
         
     })
     
-    # Update chemical location.
-    eventReactive(input$addNewChemical, {
-        
-        # Render inputs.
-        output$new_chemical <- {(
-            renderText(input$name)
-        )}
-        
-        output$new_location <- {(
-            renderText(input$location)
-        )}
-        
-        output$new_column1 <- {(
-            renderText(input$column1)
-        )}
-        
+    # Add new inventory.
+    
+    # Only enable the Submit button when the mandatory fields are validated
+    observe({
+        mandatoryFilled <-
+            vapply(fieldsMandatory,
+                   function(x) {
+                       !is.null(input[[x]]) && input[[x]] != ""
+                   },
+                   logical(1))
+        mandatoryFilled <- all(mandatoryFilled)
+
+        shinyjs::toggleState(id = "addNewItem", condition = mandatoryFilled)
     })
 
 })
