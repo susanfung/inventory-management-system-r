@@ -14,7 +14,7 @@ shinyServer(function(input, output, session) {
     
     # Show table selected columns.
     output$mytable = renderDataTable(
-        InventoryList$Inventory, rownames = FALSE,
+        loadData(), rownames = FALSE,
         extensions = list('Buttons' = NULL,
                           'FixedColumns' = NULL,
                           'FixedHeader' = NULL),
@@ -26,7 +26,7 @@ shinyServer(function(input, output, session) {
             fixedHeader = TRUE
         )
     )
-    
+
     # Update inventory.
     eventReactive(input$updateChemical, {
         

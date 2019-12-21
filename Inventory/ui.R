@@ -3,6 +3,7 @@ source("globals.R")
 library(shinydashboard)
 library(ggplot2)
 library(readxl)
+library(shinyjs)
 
 # Read the dataset.
 sheets <- readxl::excel_sheets("Inventory.xlsx")
@@ -28,8 +29,8 @@ dashboardPage(
     
     dashboardBody(
         fluidPage(
-            shinyjs::useShinyjs(),
-            shinyjs::inlineCSS(appCSS),
+            useShinyjs(),
+            inlineCSS(appCSS),
             
             tabItems(
                 
@@ -63,22 +64,54 @@ dashboardPage(
                         div(
                             id = "newForm",
                             
+                            # Input: Barcode
+                            textInput(inputId = "Barcode",
+                                      label= "Barcode:"),
+                            
                             # Input: Chemical
-                            textInput(inputId = "newName",
+                            textInput(inputId = "Name",
                                       labelMandatory("Name:")),
                             
                             # Input: Location
-                            textInput(inputId = "newLocation",
+                            textInput(inputId = "Location",
                                       labelMandatory("Location:")),
                             
                             # Input: Column1
-                            textInput(inputId = "newColumn1",
+                            textInput(inputId = "Column1",
                                       label = "Column1:"),
+                            
+                            # Input: Column2
+                            textInput(inputId = "Column2",
+                                      label = "Column2:"),
+                            
+                            # Input: Column3
+                            textInput(inputId = "Column3",
+                                      label = "Column3:"),
+                            
+                            # Input: Column4
+                            textInput(inputId = "Column4",
+                                      label = "Column4:"),
+                            
+                            # Input: Column5
+                            textInput(inputId = "Column5",
+                                      label = "Column5:"),
+                            
+                            # Input: Column6
+                            textInput(inputId = "Column6",
+                                      label = "Column6:"),
+                            
+                            # Input: Column7
+                            textInput(inputId = "Column7",
+                                      label = "Column7:"),
+                            
+                            # Input: Column8
+                            textInput(inputId = "Column8",
+                                      label = "Column8:"),
                             
                             # Action Button: Submit
                             actionButton("addNewItem", "Submit", class = "btn-primary"),
                             
-                            shinyjs::hidden(
+                            hidden(
                                 span(id = "newSubmitMsg", "Submitting..."),
                                 div(id = "newError",
                                     div(br(), tags$b("Error: "), span(id = "newErrorMsg"))
@@ -86,7 +119,7 @@ dashboardPage(
                             )
                         ),
                         
-                        shinyjs::hidden(
+                        hidden(
                             div(
                                 id = "NewThankYouMsg",
                                 h3("Thanks, your response was submitted successfully!"),
