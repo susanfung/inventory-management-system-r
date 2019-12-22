@@ -30,7 +30,8 @@ dashboardPage(
                 
                 tabItem("inventoryList",
                         # Output: Inventory Table
-                        dataTableOutput('mytable')
+                        dataTableOutput('mytable'),
+                        dataTableOutput('updateTable')
                 ),
                 
                 tabItem("updateInventory",

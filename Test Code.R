@@ -1,20 +1,19 @@
-library(readxl)
 library(writexl)
-write_xlsx(x = ToothGrowth, path = tempfile(fileext = ".xlsx"), col_names = TRUE, format_headers = TRUE)
+library(readxl)
+library(dplyr)
 
 sheets <- readxl::excel_sheets("Inventory.xlsx")
 InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
 names(InventoryList) <- sheets
 vchoices <- 1:ncol(InventoryList$Inventory)
 names(vchoices) <- names(InventoryList$Inventory)
-head(vchoices)
 columnNames <- colnames(InventoryList$Inventory)
-columnNames
 
 updateFormData <- InventoryList$Inventory %>% filter(., Barcode == "1") %>% mutate(Location = 100)
 remainingFormData <- InventoryList$Inventory %>% filter(., Barcode != "1")
 InventoryList$Inventory <- rbind(updateFormData, remainingFormData)
-head(InventoryList$Inventory)
+sheets <- list("Inventory" = InventoryList$Inventory, "Location" = InventoryList$Location)
+write_xlsx(sheets, "Inventory.xlsx")
 
 # Show selected column to update.
 output$result <- renderText({

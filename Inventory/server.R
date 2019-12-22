@@ -1,8 +1,10 @@
 # Load the required packages.
 library(shiny)
 library(readxl)
+library(writexl)
 library(ggplot2)
 library(DT)
+library(dplyr)
 
 # Create the server functions for the UI.
 shinyServer(function(input, output, session) {
@@ -39,6 +41,15 @@ shinyServer(function(input, output, session) {
         shinyjs::toggleState(id = "updateInventoryItem", condition = mandatoryFilled)
     })
     
+    # Action to take when submit button is pressed.
+    observeEvent(input$updateInventoryItem, {
+        updateFormData <- InventoryList$Inventory %>% filter(., Barcode == "1") %>% mutate(Location = "100")
+        remainingFormData <- InventoryList$Inventory %>% filter(., Barcode != "1")
+        InventoryList$Inventory <- rbind(updateFormData, remainingFormData)
+        sheets <- list("Inventory" = InventoryList$Inventory, "Location" = InventoryList$Location)
+        write_xlsx(sheets, "Inventory.xlsx")
+    })
+    
     # Add new inventory.
     
     # Only enable the Submit button when the mandatory fields are validated.
@@ -73,7 +84,6 @@ shinyServer(function(input, output, session) {
     }
     
     # Action to take when submit button is pressed.
-    
     observeEvent(input$addNewItem, {
         shinyjs::disable("addNewItem")
         shinyjs::show("newSubmitMsg")
