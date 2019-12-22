@@ -1,3 +1,9 @@
+# Read the dataset.
+sheets <- readxl::excel_sheets("Inventory.xlsx")
+InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
+names(InventoryList) <- sheets
+columnNames <- colnames(InventoryList$Inventory)
+
 # Indicates mandatory fields.
 fieldsMandatory <- c("Name", "Location")
 

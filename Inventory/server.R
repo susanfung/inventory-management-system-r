@@ -6,11 +6,6 @@ library(DT)
 
 # Create the server functions for the UI.
 shinyServer(function(input, output, session) {
-
-    # Read the dataset.
-    sheets <- readxl::excel_sheets("Inventory.xlsx")
-    InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
-    names(InventoryList) <- sheets
     
     # Show table selected columns.
     output$mytable = renderDataTable(

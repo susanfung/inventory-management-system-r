@@ -5,12 +5,6 @@ library(ggplot2)
 library(readxl)
 library(shinyjs)
 
-# Read the dataset.
-sheets <- readxl::excel_sheets("Inventory.xlsx")
-InventoryList <- lapply(sheets, function(X) readxl::read_excel("Inventory.xlsx", sheet = X))
-names(InventoryList) <- sheets
-columnNames <- colnames(InventoryList$Inventory)
-
 # Define UI for dataset viewer app ----
 
 dashboardPage(
