@@ -23,17 +23,20 @@ shinyServer(function(input, output, session) {
     )
     
     # Update inventory.
-    eventReactive(input$updateChemical, {
+    
+    # Only enable the Submit button when the mandatory fields are validated.
+    observe({
+        # check if all mandatory fields have a value
+        mandatoryFilled <-
+            vapply(fieldsMandatoryUpdate,
+                   function(x) {
+                       !is.null(input[[x]]) && input[[x]] != ""
+                   },
+                   logical(1))
+        mandatoryFilled <- all(mandatoryFilled)
         
-        # Render inputs.
-        output$barcode_chemical <- {(
-            renderText(input$barcodeChemical)
-        )}
-        
-        output$new_value <- {(
-            renderText(input$newColumnValue)
-        )}
-        
+        # enable/disable the submit button
+        shinyjs::toggleState(id = "updateInventoryItem", condition = mandatoryFilled)
     })
     
     # Add new inventory.
@@ -41,7 +44,7 @@ shinyServer(function(input, output, session) {
     # Only enable the Submit button when the mandatory fields are validated.
     observe({
         mandatoryFilled <-
-            vapply(fieldsMandatory,
+            vapply(fieldsMandatoryNew,
                    function(x) {
                        !is.null(input[[x]]) && input[[x]] != ""
                    },

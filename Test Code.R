@@ -11,6 +11,11 @@ head(vchoices)
 columnNames <- colnames(InventoryList$Inventory)
 columnNames
 
+updateFormData <- InventoryList$Inventory %>% filter(., Barcode == "1") %>% mutate(Location = 100)
+remainingFormData <- InventoryList$Inventory %>% filter(., Barcode != "1")
+InventoryList$Inventory <- rbind(updateFormData, remainingFormData)
+head(InventoryList$Inventory)
+
 # Show selected column to update.
 output$result <- renderText({
   paste("Enter new value for ", input$column)

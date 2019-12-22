@@ -5,7 +5,8 @@ names(InventoryList) <- sheets
 columnNames <- colnames(InventoryList$Inventory)
 
 # Indicates mandatory fields.
-fieldsMandatory <- c("Name", "Location")
+fieldsMandatoryNew <- c("Name", "Location")
+fieldsMandatoryUpdate <- c("itemBarcode", "column", "newColumnValue")
 
 # Add an asterisk to an input label.
 labelMandatory <- function(label) {

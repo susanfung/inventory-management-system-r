@@ -34,23 +34,27 @@ dashboardPage(
                 ),
                 
                 tabItem("updateInventory",
-                        # Input: Chemical Barcode
-                        textInput(inputId = "barcodeChemical",
-                                  label = "Chemical:",
-                                  value = "Scan Barcode"),
                         
-                        # Select which column to update.
-                        selectInput("column", "Choose a column to update:",
-                                    c(columnNames[-c(0, 1, 2)])
-                        ),
-                        
-                        # Input: New value for selected column
-                        textInput(inputId = "newColumnValue",
-                                  label = NULL,
-                                  value = "Enter new value"),
-                        
-                        # Action Button: Submit
-                        actionButton("updateChemical", "Submit", class = "btn-primary")
+                        div(
+                            id = "updateForm",
+                         
+                            # Input: Item Barcode
+                            textInput(inputId = "itemBarcode",
+                                      labelMandatory("Scan item barcode:")),
+                            
+                            # Select which column to update.
+                            selectInput("column",
+                                        labelMandatory("Choose a column to update:"),
+                                        c(columnNames[-c(0, 1, 2)])
+                            ),
+                            
+                            # Input: New value for selected column
+                            textInput(inputId = "newColumnValue",
+                                      label = NULL),
+                            
+                            # Action Button: Submit
+                            actionButton("updateInventoryItem", "Submit", class = "btn-primary")   
+                        )
                 ),
                 
                 tabItem("addNewInventory",
